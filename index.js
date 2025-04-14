@@ -71,8 +71,8 @@ fs.createReadStream(csvPath)
       const procesado = headers.map((key) => {
         const value = row[key];
 
-        if (value === "false") return "0";
-        if (value === "true") return "1";
+        if (value === "false" || value === "f") return "0";
+        if (value === "true" || value === "t") return "1";
         if (!value || value.trim() === "") return `${null}`;
 
         if (REGEX_FECHA.test(value)) {

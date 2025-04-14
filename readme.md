@@ -11,7 +11,7 @@ Lee un archivo con extensión `.csv`, que incluye una fila de encabezados, y gen
 Durante el proceso:
 
 - Convierte fechas en formato `dd/mm/yyyy` a `yyyy-mm-dd`.
-- Convierte valores booleanos (`true` y `false`) a `1` y `0`.
+- Convierte valores booleanos (`true`/`t` y `false`/`f`) a `1` y `0`.
 - Escapa comillas simples en los valores de texto.
 - Convierte celdas vacías en valores `NULL`.
 
