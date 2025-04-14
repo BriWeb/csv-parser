@@ -7,15 +7,16 @@ const REGEX_FECHA =
 const registros = [];
 
 let name = process.env.archivo;
+let separator = process.env.separador ? process.env.separador : ",";
 const csvPath = path.resolve(`${name}.csv`);
 
 if (!fs.existsSync(csvPath)) {
-  console.error(`El archivo ${csvPath} no existe, no.`);
+  console.error(`El archivo ${csvPath} no existe.`);
   process.exit(1);
 }
 
 fs.createReadStream(csvPath)
-  .pipe(csv({ separator: ";" }))
+  .pipe(csv({ separator }))
   .on("data", (row) => {
     registros.push(row);
   })

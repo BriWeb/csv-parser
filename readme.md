@@ -1,19 +1,18 @@
 ### ¿Qué es?
 
-Un script hecho en **Node.js** para automatizar la lectura de archivos exportados desde **PostgreSQL** y generar el código de inserción equivalente para **SQL Server**, adaptando automáticamente diferencias en formatos como fechas y valores booleanos.
+Un script hecho en **Node.js** para automatizar la lectura de archivos csv y generar el código de inserción para **SQL Server**, .
 
 ---
 
 ### ¿Qué hace?
 
-Lee un archivo con extensión `.csv`, exportado desde PostreSQL mediante la herramienta _Import/Export Data_, con encabezados incluídos, y genera un archivo `.sql` con los comandos `INSERT` correspondientes adaptados para SQL Server.
+Lee un archivo con extensión `.csv`, con encabezados incluídos, y genera un archivo `.sql` con los comandos `INSERT` correspondientes para SQL Server, adaptando automáticamente diferencias en formatos como fechas (de `dd/mm/yyyy` a `yyyy-mm-dd`) y valores booleanos (de `true` y `false` a `1` y `0`).
 
 ---
 
 ### Requisitos
 
 - El archivo `.csv` debe estar en la raíz del proyecto.
-- Debe utilizar punto y coma (`;`) como separador.
 - Debe contener una fila de encabezados (header).
 
 ---
@@ -24,6 +23,12 @@ Suponiendo que el archivo a procesar se llama **mi_archivo.csv**, ejecutá desde
 
 ```bash
 archivo=mi_archivo node index.js
+```
+
+En caso de que el archivo esté separado por `;` (punto y coma) el comando sería:
+
+```bash
+archivo=mi_archivo separador=";" node index.js
 ```
 
 > ⚠️ IMPORTANTE: No incluir la extensión `.csv` en el nombre del archivo al ejecutar el comando.
