@@ -1,18 +1,19 @@
 ### ¿Qué es?
 
-Un script hecho en **Node.js** para automatizar la lectura de archivos csv y generar el código de inserción para **SQL Server**.
+Un script hecho en **Node.js** para automatizar la lectura de archivos `.csv` y generar código de inserción para **SQL Server**.
 
 ---
 
 ### ¿Qué hace?
 
-Lee un archivo con extensión `.csv`, con encabezados incluidos, y genera un archivo `.sql` con los comandos `INSERT` correspondientes para SQL Server.  
+Lee un archivo con extensión `.csv`, que incluye una fila de encabezados, y genera un archivo `.sql` con los comandos `INSERT` correspondientes para SQL Server.
+
 Durante el proceso:
 
-- Convierte fechas de `dd/mm/yyyy` a `yyyy-mm-dd`.
+- Convierte fechas en formato `dd/mm/yyyy` a `yyyy-mm-dd`.
 - Convierte valores booleanos (`true` y `false`) a `1` y `0`.
-- Escapa comillas simples en los datos.
-- Ignora celdas vacías convirtiéndolas a `NULL`.
+- Escapa comillas simples en los valores de texto.
+- Convierte celdas vacías en valores `NULL`.
 
 ---
 
@@ -25,24 +26,31 @@ Durante el proceso:
 
 ### ¿Cómo se usa?
 
-Suponiendo que el archivo a procesar se llama **mi_archivo.csv**, ejecutá desde la consola:
+Suponiendo que el archivo a procesar se llama **mi_archivo.csv**, ejecutá el siguiente comando en la terminal:
 
 ```bash
-archivo=mi_archivo node index.js
+n=mi_archivo node index.js
 ```
 
-En caso de que el archivo esté separado por `;` (punto y coma), el comando sería:
+Si el archivo está separado por punto y coma (`;`), usá:
 
 ```bash
-archivo=mi_archivo separador=";" node index.js
+n=mi_archivo s=";" node index.js
 ```
 
-> ⚠️ IMPORTANTE: No incluir la extensión `.csv` en el nombre del archivo al ejecutar el comando.
+Si los valores están entre comillas simples (`'`) en lugar de comillas dobles, usá:
+
+```bash
+n=mi_archivo q="'" node index.js
+```
+
+> ⚠️ IMPORTANTE: No incluyas la extensión `.csv` en el nombre del archivo al ejecutar el comando.
 
 ---
 
 ### Salida
 
-Como resultado generará un archivo **mi_archivo.sql** listo para ser ejecutado en SQL Server. El archivo incluirá bloques de hasta 1000 INSERTs por transacción, con manejo de errores usando `BEGIN TRY ... CATCH`.
+Como resultado, se generará un archivo **mi_archivo.sql** listo para ejecutar en SQL Server.
+El script agrupa las inserciones en bloques de hasta 1000 filas por transacción e incluye manejo de errores con `BEGIN TRY ... CATCH`.
 
 ---

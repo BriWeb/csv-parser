@@ -6,8 +6,30 @@ const REGEX_FECHA =
   /^(['"]?)(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/([0-9]{4})\1$/;
 const registros = [];
 
-let name = process.env.archivo;
-let separator = process.env.separador ? process.env.separador : ",";
+let name = process.env.n;
+
+let quote = '"';
+if (process.env.q) {
+  if (process.env.q == "'") {
+    quote = process.env.q;
+  } else {
+    console.log("Comillas incorrectas, se usarán las comillas por default.");
+  }
+} else {
+  console.log("Comillas por default.");
+}
+
+let separator = ",";
+if (process.env.s) {
+  if (process.env.s == ";") {
+    separator = process.env.s;
+  } else {
+    console.log("Separador incorrecto, se usará el separador por default.");
+  }
+} else {
+  console.log("Separador por default.");
+}
+
 const csvPath = path.resolve(`${name}.csv`);
 
 if (!fs.existsSync(csvPath)) {
@@ -16,7 +38,7 @@ if (!fs.existsSync(csvPath)) {
 }
 
 fs.createReadStream(csvPath)
-  .pipe(csv({ separator }))
+  .pipe(csv({ separator, quote, escape: quote, skipLines: 0 }))
   .on("data", (row) => {
     registros.push(row);
   })
