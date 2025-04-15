@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Brian",
+  "author": "Brian Herrera",
   "license": "ISC",
-  "description": "",
+  "description": "Script hecho en Node.js para automatizar la lectura de archivos .csv y generar código de inserción para SQL Server.",
   "dependencies": {
     "csv-parser": "^3.2.0"
   }
